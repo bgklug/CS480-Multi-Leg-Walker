@@ -12,7 +12,7 @@ servo_h         = 27; //not used in code
 
 wing_w          = 5;
 wing_h          = 2.33;
-wing_place      = 16.2;   
+wing_place      = 18.3;   
 hole_offset     = 2.5;    //not checked
 mount_hole_r    = 2/2;
 mount_slot      = 1;
@@ -30,9 +30,11 @@ wire_h          = 1;
 wire_place      = 4.8;
 
 servo_full_w    = servo_w+wing_w*2;
-module servo_9g(hole=true) {
+
+//servo_9g(true, false);
+module servo_9g(hole=false, wings = true) {
     //if a differnce is applied and you want 
-    if(!hole) {
+    if(hole) {
         translate([servo_l/2,-hole_offset,-10]) 
         cylinder(r=mount_hole_r,h=40);
         translate([servo_l/2,hole_offset+servo_w,-10]) 
@@ -54,23 +56,25 @@ module servo_9g(hole=true) {
         translate([servo_l/2,servo_l+small_hub_r/2,body_h])
         cylinder(r=small_hub_r,h=hub_h);
         
+        if(wing) {
+            translate([0,servo_w,wing_place])
+            difference() {
+                cube([servo_l,wing_w,wing_h]);
+                translate([servo_l/2,hole_offset,0]) 
+                cylinder(r=mount_hole_r,h=5);
+                translate([servo_l/2-mount_slot/2,hole_offset+mount_hole_r/2,0])
+                if(hole) cube([mount_slot,4,3]);
+            }
         
-        translate([0,servo_w,wing_place])
-        difference() {
-            cube([servo_l,wing_w,wing_h]);
-            translate([servo_l/2,hole_offset,0]) 
-            cylinder(r=mount_hole_r,h=5);
-            translate([servo_l/2-mount_slot/2,hole_offset+mount_hole_r/2,0])
-            if(hole) cube([mount_slot,4,3]);
-        }
-        translate([servo_l,0,wing_place])
-        rotate([0,0,180])
-        difference() {
-            cube([servo_l,wing_w,wing_h]);
-            translate([servo_l/2,hole_offset,0]) 
-            cylinder(r=mount_hole_r,h=5);
-            translate([servo_l/2-mount_slot/2,hole_offset+mount_hole_r/2,0])
-            if(hole) cube([mount_slot,4,3]);
+            translate([servo_l,0,wing_place])
+            rotate([0,0,180])
+            difference() {
+                cube([servo_l,wing_w,wing_h]);
+                translate([servo_l/2,hole_offset,0]) 
+                cylinder(r=mount_hole_r,h=5);
+                translate([servo_l/2-mount_slot/2,hole_offset+mount_hole_r/2,0])
+                if(hole) cube([mount_slot,4,3]);
+            }
         }
     }
     
