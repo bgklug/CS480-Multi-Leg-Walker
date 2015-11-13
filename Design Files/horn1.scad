@@ -9,7 +9,7 @@ center_to_tip_center = 19 - horn_r;
 horn_thick = 4;
 horn_tip   = 3.9/2;
 
-
+horn1();
 
 module horn1() {
     hull() {

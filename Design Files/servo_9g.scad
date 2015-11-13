@@ -56,7 +56,7 @@ module servo_9g(hole=false, wings = true) {
         translate([servo_l/2,servo_l+small_hub_r/2,body_h])
         cylinder(r=small_hub_r,h=hub_h);
         
-        if(wing) {
+        if(wings) {
             translate([0,servo_w,wing_place])
             difference() {
                 cube([servo_l,wing_w,wing_h]);
