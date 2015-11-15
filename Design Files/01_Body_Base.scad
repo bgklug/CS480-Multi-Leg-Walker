@@ -27,9 +27,8 @@ cube_x = wall_t*2 + servo_l+tol*2;
 cube_y = wall_t*2 + servo_w+tol*2+wing_w*2; 
 
 
-/*
-translate([0,0,30])
-arduino("Mega");
+
+
 //*/
 difference() 
 {
