@@ -79,7 +79,7 @@ difference()
         {
             cube([servo_l+2*tol, servo_w+2*tol, 50]);
             translate([tol,tol,0])
-            servo_9g(hole=true,wing= false);
+            servo_9g(hole=true,wings= false);
         }
     }
     

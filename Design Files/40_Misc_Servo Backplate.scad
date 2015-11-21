@@ -2,7 +2,7 @@ include<servo_9g.scad>
 
 //No bearing will print the shaft to the bearing diameter
 bearing = false;
-radius = bearing ? 1.84 : 3.6;
+radius = bearing ? 1.84 : 3.4;
 
 difference() {
         union() {

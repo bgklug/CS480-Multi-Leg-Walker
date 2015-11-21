@@ -1,6 +1,6 @@
 $fn = 64;
 
-horn_r     = 7.4/2;
+horn_r     = 7.6/2; //big horn
 horn_r2    = 6.6/2;
 horn_h     = 4;
 

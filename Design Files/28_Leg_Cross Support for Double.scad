@@ -1,6 +1,8 @@
+include<servo_9g.scad>
+
 $fn = 12;
 
-l = 35; 
+l = 36; 
 w = 12;
 t = 6;
 

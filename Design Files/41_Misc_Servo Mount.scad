@@ -18,7 +18,7 @@ difference() {
     
     translate([(36-servo_y)/2+servo_y-4*servo_tol,(mount_y-servo_l)/2,2])
     rotate([0,0,90])
-    servo_9g(false);
+    servo_9g(true,false);
     
     translate([-1,3,3])
     rotate([0,90,0])
