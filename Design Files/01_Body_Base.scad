@@ -14,7 +14,7 @@ angle = 180-(sides-2)*180/sides;
 theta = angle/2;
 echo(angle);
 
-radius = 75;
+radius = 60;
 corner_r = 3;
 length = (radius-corner_r)/cos(theta);
 echo("lenght", length);
