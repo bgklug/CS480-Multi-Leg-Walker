@@ -8,7 +8,7 @@
 #define _RSERVO_h
 
 #include <Arduino.h>
-#include <Servo.h>
+#include <C:\Program Files (x86)\Arduino\libraries\Servo\src\Servo.h>
 
 Servo myServo;
 
@@ -19,7 +19,7 @@ public:
 	rServo();
 
 	//Attach servos no need with the control board but still declares position
-	void attach(int ServoNumber, int Offset = 0, int _min = -90, int _max = 90);
+	void attach(int ServoNumber);
 
 	//Moves the servo up and down from 0. -90 would is down and 90 is up, all from netrual.
 	void move(int pos);

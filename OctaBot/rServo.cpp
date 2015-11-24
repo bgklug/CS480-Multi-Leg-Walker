@@ -1,4 +1,5 @@
 #include "rServo.h"
+#include <C:\Program Files (x86)\Arduino\libraries\Servo\src\Servo.h>
 
 rServo::rServo(void)
 {
@@ -14,6 +15,14 @@ void rServo::attach(int ServoNumber, int Offset, int _min, int _max)
 	adjCenter(Offset);
 	//Adjusts the maximum and minimum travel of the servos
 	adjLimit(_min, _max);
+	myServo.attach(_servoAddress);
+}
+
+//Attach servos no need with the control board but still declares position
+void rServo::attach(int ServoNumber)
+{
+	//declare starting place in servo chain
+	_servoAddress = ServoNumber;
 	myServo.attach(_servoAddress);
 }
 

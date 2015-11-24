@@ -21,11 +21,11 @@ class Limb
 {
 public:
 	//Declare servo address and create rServo objects for leg
-	Limb(int address[5], bool rightL);
+	Limb(int address[SIZE]);
 
 	//leg is the movement cure for the class. therfore moving the right leg looks like
 	//right.leg(int move[5]);
-	void limb(int move[5]);
+	void limb(int move[SIZE]);
 
 	//Functions for playing the given routines
 	//first element of the array, array end element 
@@ -36,15 +36,17 @@ public:
 
 
 	//rServo parts of the leg
-	rServo joint[SIZE];
+	rServo jointOne;
+	rServo jointTwo;
+	rServo jointThree;
 
 private:
 
 	//Adjust the offsets for the servos. Only accesed at statup.
 	//If you want each servo is public so you could ajust them one by one.
-	void adjLeg(int adj[5]);
+	void adjLimb(int adj[SIZE]);
 
-	int _servoAddresses[5];
+	int _servoAddresses[SIZE];
 
 	bool _isRightLeg;
 };

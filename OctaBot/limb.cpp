@@ -3,27 +3,17 @@
 // 
 
 #include "limb.h"
+#include <algorithm>
 
 //Initializing call. Get offsets, limits, addresses.
 //Also inverts direction of the servos that need it.
-Limb::Limb(int address[5] , bool rightL)
+Limb::Limb(int address[SIZE])
 {
-	//set the Right leg status
-	_isRightLeg = rightL;
 
-	int limitTemp[10];
+	int limitTemp[SIZE*2];
 	
 	//Get the servo array adress
 	copy(_servoAddresses, _servoAddresses + SERVOS/2, address);
-
-	//copy the limit positions of the servos
-	if (rightL) 
-	{
-		copy(limitTemp, limitTemp + SERVOS, rightOffSetList);
-	}
-	else {
-		copy(limitTemp, limitTemp + SERVOS, leftOffSetList);
-	}
 	
 
 	/*
@@ -43,45 +33,26 @@ Limb::Limb(int address[5] , bool rightL)
 	}
 	*/
 	//Initalize the parts of the leg foot to hip again
-	ankle.attach(_servoAddresses[0], offSetList[_servoAddresses[0]],limitTemp[0],limitTemp[1]);
-	shin.attach(_servoAddresses[1], offSetList[_servoAddresses[1]], limitTemp[2], limitTemp[3]);
-	knee.attach(_servoAddresses[2], offSetList[_servoAddresses[2]], limitTemp[4], limitTemp[5]);
-	thigh.attach(_servoAddresses[3], offSetList[_servoAddresses[3]], limitTemp[6], limitTemp[7]);
-	hip.attach(_servoAddresses[4], offSetList[_servoAddresses[4]], limitTemp[8], limitTemp[9]);
+	jointOne.attach(_servoAddresses[0]);
+	jointTwo.attach(_servoAddresses[1]);
+	jointThree.attach(_servoAddresses[2]);
 
-
-
-	//inverts the servos conditionaly on the leg
-	if (_isRightLeg)
-	{
-		ankle.reverseDirection();
-		shin.reverseDirection();
-		knee.reverseDirection();
-	}
-	else {
-		thigh.reverseDirection();
-		hip.reverseDirection();
-	}
 
 
 }
 
 
-void Leg::leg(int move[5])
+void Limb::limb(int move[5])
 {
-	ankle.move(move[0]);
-	shin.move(move[1]);
-	knee.move(move[2]);
-	thigh.move(move[3]);
-	hip.move(move[4]);
+	jointOne.move(move[0]);
+	jointTwo.move(move[1]);
+	jointThree.move(move[2]);
 	
 }
 
-void Leg::adjLeg(int adj[5])
+void Limb::adjLimb(int adj[5])
 {
-	ankle.adjCenter(adj[1]);
-	shin.adjCenter(adj[2]);
-	knee.adjCenter(adj[3]);
-	thigh.adjCenter(adj[4]);
-	hip.adjCenter(adj[5]);
+	jointOne.adjCenter(adj[1]);
+	jointTwo.adjCenter(adj[2]);
+	jointThree.adjCenter(adj[3]);
 }

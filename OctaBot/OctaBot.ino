@@ -1,10 +1,8 @@
-#include <vector>
-
 #include "limb.h"
 #include "rServo.h"
 
 using namespace std;
-vector<limb> limbs()
+
 
 //Makes the servo line up better 
 int offSetList[16] = { -6,7,-6,4,0,5,6,7,8,9,10,2,-2,-2,-9,-9 };
@@ -20,9 +18,10 @@ int ZERO_A[5] = { 0 };
 
 
 //Leg is init. leg moves the servoes
-int limbAddress[3] = { 0, 1, 2 };
-int limbAddress[3] = { 15, 14, 13 };
+int limbAddress[3] = { 13, 10, 9 };
 
+
+Limb limb(limbAddress);
 
 void setup() {
 
