@@ -2,7 +2,7 @@ include<servo_9g.scad>
 
 $fn = 12;
 
-l = 36; 
+l = 38; 
 w = 12;
 t = 6;
 

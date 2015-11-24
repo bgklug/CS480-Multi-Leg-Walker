@@ -9,7 +9,7 @@ tol = .2;
 
 //Hexa = 6
 //Octo = 8
-sides = 8;
+sides = 6;
 angle = 180-(sides-2)*180/sides;
 theta = angle/2;
 echo(angle);
@@ -27,8 +27,14 @@ cube_x = wall_t*2 + servo_l+tol*2;
 cube_y = wall_t*2 + servo_w+tol*2+wing_w*2; 
 
 
+servo_tol   = 0.3;
+servo_x     = servo_l + servo_tol*2; //~12
+servo_y     = servo_w + servo_tol*8; //~23
 
 
+translate([22,-50,-10])
+rotate([ 0, 180, 0 ])
+%arduino("Mega");
 //*/
 difference() 
 {
@@ -70,15 +76,16 @@ difference()
         }
 		
     }
+	
     for(i=[0:sides-1])
     {
         rotate([0,0,angle*i]) 
-        translate([radius-cube_y/2+tol,0,0])
+        translate([radius-cube_y/2+servo_tol*4,0,0])
         rotate([0,0,90])
-        translate([-servo_l/2-tol,-servo_w/2-tol,-10])
+        translate([-servo_l/2-servo_tol,-servo_w/2-.2,-10])
         {
-            cube([servo_l+2*tol, servo_w+2*tol, 50]);
-            translate([tol,tol,0])
+            cube([servo_x, servo_y, 50]);
+            translate([servo_tol,servo_tol*4,0])
             servo_9g(hole=true,wings= false);
         }
     }
@@ -98,9 +105,10 @@ module servo_slot()
         //outside box
         translate([-wall_t,-wall_t-wing_w,0])
         cube([cube_x, cube_y, wing_place+up]);
+		
         //inner servo tol box
-        translate([-tol, -tol, -tol])
-        cube([servo_l+2*tol, servo_w+2*tol, 30]);
+        translate([-servo_tol, -servo_tol*4, -0.5])
+        cube([servo_x, servo_y, 30]);
         //mounting holes
         translate([0,0,up])
             servo_9g(hole=true,wing= false);

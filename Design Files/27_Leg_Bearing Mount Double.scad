@@ -21,9 +21,9 @@ difference() {
             cylinder(r=bearing_r+1.8, h=2.4, $fn=32);
     }
     translate([0,0,bearing_h])
-    cylinder(r=bearing_r, h=15, $fn=32);
+    cylinder(r1=bearing_r,r2=bearing_r-0.2, h=15, $fn=32);
     translate([mount_x,0,bearing_h])
-    cylinder(r=bearing_r, h=15, $fn=32);
+    cylinder(r1=bearing_r,r2=bearing_r-0.2, h=15, $fn=32);
     
     translate([10,0,0])
     cube([6,6,12], center= true);

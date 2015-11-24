@@ -2,11 +2,9 @@ include<servo_9g.scad>
 
 mount_x = 36;
 mount_y = servo_l+2;
-servo_tol   = 0.2;
+servo_tol   = 0.3;
 servo_x     = servo_l + servo_tol*2; //~12
 servo_y     = servo_w + servo_tol*8; //~23
-
-
 
 difference() {
     union() {

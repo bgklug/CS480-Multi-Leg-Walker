@@ -8,11 +8,11 @@ difference() {
         union() {
             cube([34,14,1]);
             translate([servo_l/2+hole_offset*2,7,1])
-            cylinder(r=radius,h=2.9, $fn = 64);
+            cylinder(r1=radius-.2, r2=radius,h=2.9, $fn = 64);
         }
         translate([hole_offset,7,-10]) 
         cylinder(r=mount_hole_r,h=40);
-        translate([hole_offset*3+servo_w,7,-10]) 
+        translate([hole_offset*3+servo_w-.1,7,-10]) 
         cylinder(r=mount_hole_r,h=40);
         
         //Wire Slot
