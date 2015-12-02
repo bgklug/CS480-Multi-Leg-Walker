@@ -33,7 +33,7 @@ difference()
     rotate([0,90,0])
     cylinder(r=1, h=50);
 	
-	rrr = 2;
+	rrr = 2.4;
 	translate([2,3,3])
     rotate([0,90,0])
     cylinder(r=rrr, h=50);

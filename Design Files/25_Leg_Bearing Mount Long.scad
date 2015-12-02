@@ -16,6 +16,8 @@ difference() {
         }
         translate([0,0,bearing_h])
         cylinder(r=bearing_r+1.8, h=2.4, $fn=32);
+		translate([mount_x-3*2, -mount_y/2,thick])
+		cube([6,mount_y,1.8]);
     }
     translate([0,0,bearing_h])
     cylinder(r1=bearing_r,r2=bearing_r-0.2, h=15, $fn=32);
@@ -27,7 +29,7 @@ difference() {
     cylinder(r=1.2, h=15, $fn=12);
     translate([mount_x-3,4,-.1])
     cylinder(r=1.2, h=15, $fn=12);
-    
-    translate([mount_x-3.1*2, -mount_y/2-.1,2])
-    cube([6+.6,mount_y+.2,8]);
+//    
+//    translate([mount_x-3.1*2, -mount_y/2-.1,2])
+//    cube([6+.6,mount_y+.2,8]);
 }

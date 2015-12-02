@@ -4,7 +4,7 @@ $fn = 12;
 
 l = 38; 
 w = 12;
-t = 6;
+t = 5.6;
 
 rad = 0.9;
 difference() {

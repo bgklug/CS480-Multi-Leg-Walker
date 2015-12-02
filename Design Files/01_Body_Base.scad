@@ -31,7 +31,7 @@ servo_tol   = 0.3;
 servo_x     = servo_l + servo_tol*2; //~12
 servo_y     = servo_w + servo_tol*8; //~23
 
-
+rotate([0,0,90])
 translate([22,-50,-10])
 rotate([ 0, 180, 0 ])
 %arduino("Mega");
