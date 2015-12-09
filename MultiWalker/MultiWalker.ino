@@ -6,6 +6,17 @@ public:
   // ctor
   Leg(){}
 
+  void up();
+  void down();
+  void rotate(int angle);
+
+  void move(int a, int b, int c)
+  {
+	  hip.write(a);
+	  thigh.write(b);
+	  foot.write(c);
+  }
+
   void activate(int hipPin, int thighPin, int footPin){
     hip.attach(hipPin);
     thigh.attach(thighPin);
@@ -175,4 +186,72 @@ void loop() {
   Serial.println("Leg one Waves");
   legOne.wave();
   delay(1000);
+}
+
+
+void step(int angle)
+{
+	//lifts three legs
+	legOne.up();
+	legThree.up();
+	legFive.up();
+
+	//rotate the down legs in the direction
+	legTwo.rotate(angle);
+	legFour.rotate(angle);
+	legSix.rotate(angle);
+
+	//Brings the up legs back down
+	legOne.down();
+	legThree.down();
+	legFive.down();
+
+	//REPAT THE ABOVE BUT FOR THE OTHER LEGS
+	//lifts three legs
+	legTwo.up();
+	legFour.up();
+	legSix.up();
+
+	//rotate the down legs in the direction
+	legOne.rotate(angle);
+	legThree.rotate(angle);
+	legFive.rotate(angle);
+
+	//Brings the up legs back down
+	legTwo.down();
+	legFour.down();
+	legSix.down();
+}
+
+
+
+//Servo hip;
+//Servo thigh;
+//Servo foot;
+
+void Leg::up()
+{
+	//Dont know these angles ATM
+	//Pleasre adjust for a good amount of clearance;
+	int thighLift = 50;
+	int footLift = 50;
+
+	thigh.write(thighLift);
+	foot.write(footLift);
+	
+}
+
+void Leg::down()
+{
+	//This should be whatever the home position of the servo is
+	int thighNetural = 50;
+	int footNetural = 50;
+
+	thigh.write(thighNetural);
+	foot.write(footNetural);
+}
+ 
+void Leg::rotate(int angle)
+{
+	hip.write(angle);
 }
