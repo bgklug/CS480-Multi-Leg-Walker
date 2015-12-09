@@ -38,7 +38,11 @@ public:
       delay(20);
     }
   }
-  
+
+  // Sends legs to high standing
+  // hip = 90
+  // thigh = 0
+  // foot = 70
   void stand(){
     char hipStart = hip.read();
     char footStart = foot.read();
@@ -78,7 +82,8 @@ public:
 
   // Sends legs to low crouch position
   // hip = 90
-  // thigh = 
+  // thigh = ??
+  // foot = ??
   void crouch(){
     
     char hipStart = hip.read();
