@@ -1,0 +1,25 @@
+Drill report for C:/Users/Secantpi2/Documents/PCD Design/ServoShield/PCB design.kicad_pcb
+Created on 11/20/2015 9:08:22 AM
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'C:PCB design.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.80mm  0.032"  (2 holes)
+    T2  1.02mm  0.040"  (177 holes)
+    T3  1.52mm  0.060"  (2 holes)
+    T4  3.05mm  0.120"  (6 holes)
+
+    Total plated holes count 187
+
+
+Drill file 'C:PCB design-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+
+    Total unplated holes count 0

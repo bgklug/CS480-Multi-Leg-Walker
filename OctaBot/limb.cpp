@@ -13,9 +13,9 @@ Limb::Limb(int address[SIZE])
 	int limitTemp[SIZE*2];
 	
 	//Get the servo array adress
-	copy(_servoAddresses, _servoAddresses + SERVOS/2, address);
+	std::copy(_servoAddresses, _servoAddresses + SERVOS/2, address);
 	
-
+l
 	/*
 	for (int i = 0; i < 5; i++) {
 		//Declare servo in order of foot to hip.
