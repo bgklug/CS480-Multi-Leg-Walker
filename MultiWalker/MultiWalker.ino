@@ -1,101 +1,62 @@
 #include <Servo.h>
 
-class Leg
-{
+class Leg{
 public:
   // ctor
   Leg(){}
 
-  /*void up();
-  void down();
-  void rotate(int angle);
-  */
- 
-
-  void activate(int hipPin, int thighPin, int footPin, char hOff, char tOff, char fOff){
+  // Member Functions
+  void activate(int hipPin, int thighPin, int footPin, int hOff, int tOff, int fOff){
     hip.attach(hipPin);
     thigh.attach(thighPin);
     foot.attach(footPin);
     hipOffset = hOff;
     thighOffset = tOff;
     footOffset = fOff;
-    footPos = foot.read();
-    thighPos = thigh.read();
-    hipPos = hip.read();
     //stand();
     moveHip(90);
     moveThigh(90);
     moveFoot(90);
-  
-  }
-  // Member Functions
-   void move(int a, int b, int c)
-  {
-    hip.write(a+(int)hipOffset);
-    thigh.write(b+(int)thighOffset);
-    foot.write(c+(int)footOffset);
   }
 
-  void moveHip(char pos){
-    
-    int var = (int) pos + (int) hipOffset;
+  void moveL(int a, int b, int c){
+    hip.write(a+hipOffset);
+    thigh.write(b+thighOffset);
+    foot.write(c+footOffset);
+    hipPos = a;
+    thighPos = b;
+    footPos = c;
+    delay(50);
+  }
+
+  void moveHip(int pos){
+    int var = pos + hipOffset;
     hip.write(var);
     delay(5);
-    /*
-    if((hipPos) < pos){
-      for(hipPos; (hipPos) < pos; ++hipPos)
-      {
-        hip.write(hipPos+hipOffset);
-        //delay(15);
-      }
-    }else{
-      for(hipPos; (hipPos) > pos; --hipPos)
-      {
-        hip.write(hipPos+hipOffset);
-        //delay(15);
-      }
-    }*/
+    hipPos = pos;
   }
 
-  void moveThigh(char pos){
-    int var = (int) pos + (int) thighOffset;
+  void moveThigh(int pos){
+    int var = pos + thighOffset;
     thigh.write(var);
     delay(5);
-    /*
-    if((thighPos) < pos){
-      for(thighPos; (thighPos) < pos; ++thighPos)
-      {
-        thigh.write(thighPos+thighOffset);
-        delay(1);
-      }
-    }else{
-      for(thighPos; (thighPos) > pos; --thighPos)
-      {
-        thigh.write(thighPos+thighOffset);
-       delay(1);
-      }
-    }*/
+    thighPos = pos;
   }
 
-  void moveFoot(char pos){
-    int var = (int) pos + (int)footOffset;
+  void moveFoot(int pos){
+    int var = pos + footOffset;
     foot.write(var);
-    delay(50);
-    /*
-    if((footPos) < pos){
-      for(footPos; (footPos) < pos; ++footPos)
-      {
-        foot.write(footPos+footOffset);
-        delay(1);
-      }
-    }else{
-      for(footPos; (footPos) > pos; --footPos)
-      {
-        foot.write(footPos+footOffset);
-        delay(1);
-      }
-    }*/
+    delay(5);
+    footPos = pos;
   }  
+
+  void lift(){
+    moveL(hipPos,thighPos + 20, footPos + 20);
+  }
+
+  void set(){
+    moveL(hipPos,thighPos - 20, footPos - 20);
+  }
   
   void wave(){
     for(int i = 0; i < 180; ++i)
@@ -123,156 +84,156 @@ public:
   // thigh = 30
   // foot = 70
   void stand(){
-      move(90,30,90);
+     moveL(90,30,90);
      Serial.println("standing");
-     delay(50);
   }
 
   // Sends legs to low crouch position
   // hip = 90
-  // thigh = ??
-  // foot = ??
+  // thigh = 150
+  // foot = 180
   void crouch(){
-     move(90,150,180);
+     moveL(90,150,180);
      Serial.println("crouching");
      delay(50);
   }
 
   // Private Data Members
 private:
-  char hipOffset;
-  char thighOffset;
-  char footOffset;
-  char footPos;
-  char hipPos;
-  char thighPos;
+  int hipOffset;
+  int thighOffset;
+  int footOffset;
+  int footPos;
+  int hipPos;
+  int thighPos;
   Servo hip;
   Servo thigh;
   Servo foot;
 };
 
+class Robot{
+public:
+  Robot(){}
+
+  void activate(){
+    legOne.activate(13,10,9,0,19,0);
+    legTwo.activate(8,7,6,-10,2,-24);
+    legThree.activate(5,4,3,-10,9,-21);
+    legFour.activate(26,28,30,12,0,-4);
+    legFive.activate(18,19,20,-12,15,-9);
+    legSix.activate(15,16,17,10,7,-3);
+    legOne.crouch();
+    legTwo.crouch();
+    legThree.crouch();
+    legFour.crouch();
+    legFive.crouch();
+    legSix.crouch();
+  }
+  
+  void crouch(){
+    legOne.crouch();
+    legTwo.crouch();
+    legThree.crouch();
+    legFour.crouch();
+    legFive.crouch();
+    legSix.crouch();
+  }
+
+  void stand(){
+    legOne.stand();
+    legTwo.stand();
+    legThree.stand();
+    legFour.stand();
+    legFive.stand();
+    legSix.stand();
+  }
+
+  void walk(Leg legA, Leg legB, Leg legC, Leg legD, Leg legE, Leg legF){
+    legA.lift();
+    legC.lift();
+    legE.lift();
+    delay(50);
+
+    legB.moveHip(60);
+    legD.moveHip(120);
+    delay(50);
+
+    legA.set();
+    legC.set();
+    legE.set();
+    delay(50);
+
+    legB.lift();
+    legD.lift();
+    legF.lift();
+    delay(50);
+
+    legB.moveHip(90);
+    legD.moveHip(90);
+    delay(50);
+
+    legB.set();
+    legD.set();
+    legF.set();
+    delay(50);
+  }
+
+  void walkF(){
+    walk(legOne, legTwo, legThree, legFour, legFive, legSix);
+  }
+
+  void walkR(){
+    walk(legTwo, legThree, legFour, legFive, legSix, legOne);
+  }
+
+  void walkL(){
+    walk(legSix, legOne, legTwo, legThree, legFour, legFive);
+  }
+private:
 Leg legOne;
 Leg legTwo;
 Leg legThree;
 Leg legFour;
 Leg legFive;
 Leg legSix;
+};
+
+Robot hex;
 
 void setup() {
   Serial.begin(9600);
   Serial.println("Starting Set up");
-  legOne.activate(13,10,9,0,19,0);
-  legTwo.activate(8,7,6,-10,2,-24);
-  legThree.activate(5,4,3,-10,9,-21);
-  legFour.activate(26,28,30,12,0,-4);
-  legFive.activate(18,19,20,-12,15,-9);
-  legSix.activate(15,16,17,10,7,-3);
-
- 
-
-  
+  hex.activate();
+  hex.stand();
   Serial.println("Setup Complete");
 }
 
 void loop() {
+  char buff[1];
+  if(Serial.available() > 0){
+    Serial.readBytes(buff, 1);
+    Serial.println(buff);
+    switch(buff[0]){
+      case 'w':
+        hex.walkF();
+        break;
+      case 'a':
+        hex.walkL();
+        break;
+      case 'd':
+        hex.walkR();
+        break;
+      case 'c':
+        hex.crouch();
+        break;
+      case 's':
+        hex.stand();
+        break;
+      default:
+        break;
+    delay(50);
+    }
+  }
   
-  Serial.println("Leg one and two standing");
-  legOne.stand();
-  legTwo.stand();
-  //delay(2000);
-  Serial.println("Leg three and four standing");
-  legThree.stand();
-  legFour.stand();
-  //delay(2000);
-  Serial.println("Leg five and six standing");
-  legFive.stand();
-  legSix.stand();
-  delay(2000);
-  Serial.println("Leg one and two crouching");
-  legOne.crouch();
-  legTwo.crouch();
-  //delay(2000);
-  Serial.println("Leg three and four crouching");
-  legThree.crouch();
-  legFour.crouch();
-  //delay(2000);
-  Serial.println("Leg five and six crouching");
-  legFive.crouch();
-  legSix.crouch();
-  delay(2000);
-  
-// legOne.move(90,30,90);
-// Serial.println("standing");
-// delay(2000);
-// legOne.move(90,150,180);
-// Serial.println("croushing");
-// delay(2000);
 }
 
-/*
-void step(int angle)
-{
-	//lifts three legs
-	legOne.up();
-	legThree.up();
-	legFive.up();
-
-	//rotate the down legs in the direction
-	legTwo.rotate(angle);
-	legFour.rotate(angle);
-	legSix.rotate(angle);
-
-	//Brings the up legs back down
-	legOne.down();
-	legThree.down();
-	legFive.down();
-
-	//REPAT THE ABOVE BUT FOR THE OTHER LEGS
-	//lifts three legs
-	legTwo.up();
-	legFour.up();
-	legSix.up();
-
-	//rotate the down legs in the direction
-	legOne.rotate(angle);
-	legThree.rotate(angle);
-	legFive.rotate(angle);
-
-	//Brings the up legs back down
-	legTwo.down();
-	legFour.down();
-	legSix.down();
-}
-
-
-
-//Servo hip;
-//Servo thigh;
-//Servo foot;
-
-void Leg::up()
-{
-	//Dont know these angles ATM
-	//Pleasre adjust for a good amount of clearance;
-	int thighLift = 50;
-	int footLift = 50;
-
-	thigh.write(thighLift);
-	foot.write(footLift);
-	
-}
-
-void Leg::down()
-{
-	//This should be whatever the home position of the servo is
-	int thighNetural = 50;
-	int footNetural = 50;
-
-	thigh.write(thighNetural);
-	foot.write(footNetural);
-}
- 
-void Leg::rotate(int angle)
-{
-	hip.write(angle);
-}*/
